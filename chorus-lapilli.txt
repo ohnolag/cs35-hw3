@@ -1,3 +1,39 @@
+Getting the test program to work:
+trying to get given tests to work
+    ./helper test headless
+        > test_chorus_lapilli.py: error: unrecognized arguments: headless
+    ./helper test
+        > [Error] No module named 'selenium' 
+    ./helper test-docker
+        > test_chorus_lapilli.py: error: unrecognized arguments: headless
+
+trying to find selenium
+    ./venv/bin/python3 -m pip freeze | grep 'selenium'
+        > No module named pip
+
+installing pip
+    first I installed it in my Ubuntu instance
+        > not found in my VM
+
+Asked an LLM how to get pip on my VM
+    curl -sS https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+    ./venv/bin/python3 get-pip.py
+        > Successfully installed pip-25.2
+
+trying to fix selenium again
+    ./venv/bin/python3 -m pip freeze | grep 'selenium'
+        > exit code 1
+
+installing selenium
+    ./venv/bin/python3 -m pip install selenium
+        > success
+
+running test
+    ./helper test
+        > opens the port similarly to ./helper dev
+    
+
+Building Chorus Lapilli:
 start with the code from tictactoe tutorial
 added a state which keeps track of the turn number
 refactored "isXNext" to use turnNo instead
