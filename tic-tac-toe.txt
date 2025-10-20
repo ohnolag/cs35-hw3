@@ -1,0 +1,10 @@
+Notes from followin the react tutorial:
+test 1| all code given | renders one box with an X
+test 2| add additional element | 2 boxes with X followed by two semi colons
+    > solution semi colons not needed at the end of component lines only javascript lines
+test 3| create numpad board | test successful (identical to tutorial)
+test 4| replaced buttons with custom component (remember to capitalize)
+test 5| added clicking functionality | can't view console
+    > in order to view console outputs it is necessary to view the port in a browser as opposed to vscodes simple browser
+test 6| clicking now changes box to X | recieved Vite error
+    > solution dont pass an argument into a function if it would have the same name as a state
