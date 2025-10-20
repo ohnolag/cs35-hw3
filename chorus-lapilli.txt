@@ -8,3 +8,12 @@ added a movingMode state, when a player clicks on a square after they make 6 mov
     > added checks to ensure the player is clicking on a filled or unfilled square when they should be
 added a movingSquare state which keeps track of the square a player clicks before entering movingMode 
     > log the square for testing purposes
+added a function to check if the second square clicked on is valid
+    > originally I was going to perform the check using a switch statement however that quickly got verbose and I figured there was a better way to perform this check
+    > I asked an LLM "is there a more elegant way to write {the switch statement} (language react)"
+        > it recommended creating an array of pairs and and using the .includes(x) function
+        > in its solution it used two operator I was previously unfamiliar with
+            > the .? operator attempts to run a function if and only if the corresponding object is defined
+            > the ?? operator returns the second object if the first is not defined
+added a check to ensure the player is only initiating a swap on their tiles
+integrated nextSquares with swapping logic

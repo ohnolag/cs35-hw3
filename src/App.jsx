@@ -22,6 +22,10 @@ export default function Board() {
         return;
       }
       console.log(`swapping: ${movingSquare} and ${i}`);
+      const nextSquares = squares.slice();
+      nextSquares[i] = squares[movingSquare];
+      nextSquares[movingSquare] = squares[i];
+      setSquares(nextSquares);
       setMovingMode(false);
       setTurnNo(turnNo + 1);
     } else {
