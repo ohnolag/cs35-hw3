@@ -9,19 +9,39 @@ function Square({ value, onSquareClick }) {
 }
 
 export default function Board() {
-  const [xIsNext, setXIsNext] = useState(true);
   const [squares, setSquares] = useState(Array(9).fill(null));
+  const [turnNo, setTurnNo] = useState(0);
+  const [movingMode, setMovingMode] = useState(false);
+  const [movingSquare, setMovingSquare] = useState(null);
 
   function handleClick(i) {
-    if (squares[i] || calculateWinner(squares)) return;
-    const nextSquares = squares.slice();
-    if (xIsNext) {
-      nextSquares[i] = "X";
+    if (calculateWinner(squares)) return;
+    if (movingMode){
+      if (squares[i] || !isValidMovingSquare(movingSquare, i)){
+        setMovingMode(false);
+        return;
+      }
+      console.log(`swapping: ${movingSquare} and ${i}`);
+      setMovingMode(false);
+      setTurnNo(turnNo + 1);
     } else {
-      nextSquares[i] = "O";
+      if (turnNo >= 6){
+        if(squares[i] != (turnNo % 2 == 0 ? 'X' : 'O')) return;
+        setMovingSquare(i);
+        setMovingMode(true);
+      } else {
+        if (squares[i]) return;
+        const nextSquares = squares.slice();
+        if (turnNo % 2 == 0) {
+          nextSquares[i] = "X";
+        } else {
+          nextSquares[i] = "O";
+        }
+        setSquares(nextSquares);
+        setTurnNo(turnNo + 1);
+      }
     }
-    setSquares(nextSquares);
-    setXIsNext(!xIsNext);
+    
   }
 
   const winner = calculateWinner(squares);
@@ -29,7 +49,7 @@ export default function Board() {
   if (winner) {
     status = 'Winner: ' + winner;
   } else {
-    status = 'Next player: ' + (xIsNext ? 'X' : 'O');
+    status = 'Next player: ' + (turnNo % 2 == 0 ? 'X' : 'O');
   }
 
   return (
@@ -72,5 +92,21 @@ function calculateWinner(squares) {
     }
   }
   return null;
+}
+
+function isValidMovingSquare(first, second){
+  const allowedPairs = {
+    0: [1, 3, 4],
+    1: [0, 2, 3, 4, 5],
+    2: [1, 4, 5],
+    3: [0, 1, 4, 6, 7],
+    4: [0, 1, 2, 3, 5, 6, 7, 8],
+    5: [1, 2, 4, 7, 8],
+    6: [3, 4, 7],
+    7: [3, 4, 5, 6, 8],
+    8: [4, 5, 7]
+  };
+
+  return allowedPairs[first]?.includes(second) ?? false;
 }
 

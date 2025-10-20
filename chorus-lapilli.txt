@@ -1,0 +1,10 @@
+start with the code from tictactoe tutorial
+added a state which keeps track of the turn number
+refactored "isXNext" to use turnNo instead
+prevent player from placing new tiles after turnNo 6 using a check in handleclick
+    > this check will later be used to implement moving functionality
+added a movingMode state, when a player clicks on a square after they make 6 moves they enter movingMode
+    > moved regular tictactoe code into a check for movingMode
+    > added checks to ensure the player is clicking on a filled or unfilled square when they should be
+added a movingSquare state which keeps track of the square a player clicks before entering movingMode 
+    > log the square for testing purposes
