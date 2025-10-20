@@ -8,3 +8,8 @@ test 5| added clicking functionality | can't view console
     > in order to view console outputs it is necessary to view the port in a browser as opposed to vscodes simple browser
 test 6| clicking now changes box to X | recieved Vite error
     > solution dont pass an argument into a function if it would have the same name as a state
+test 7| managing game state now | it is necessary to use () => handleclick(i) for the arguments of the components, though I am unsure why
+test 8| added winner check before placing tiles | when I have created a winning state the board can not be modified, appears to work as intended
+test 9| added text that idenifies the winner | everything disappeared.
+    > moved winner check to inside of board component | old game is back, text functionality still does not appear
+    > added a div with the status info to the board function | game now functions as intended
