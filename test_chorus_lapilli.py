@@ -6,6 +6,10 @@ import argparse
 import subprocess
 import unittest
 import urllib.request
+from selenium import webdriver
+
+
+
 
 
 class TestChorusLapilli(unittest.TestCase):
@@ -73,7 +77,9 @@ class TestChorusLapilli(unittest.TestCase):
         if cls.vite.poll() is not None:
             raise OSError('Vite terminated before test')
 
-        cls.driver = Browser()
+        options = webdriver.FirefoxOptions()
+        options.add_argument("-headless")
+        cls.driver = Browser(options=options)
         cls.driver.get(cls.VITE_HOST_ADDR)
         cls.driver.implicitly_wait(0.5)
 
