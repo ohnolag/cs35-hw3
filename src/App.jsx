@@ -15,6 +15,7 @@ export default function Board() {
   const [movingSquare, setMovingSquare] = useState(null);
 
   function handleClick(i) {
+    const player = (turnNo % 2 == 0 ? 'X' : 'O');
     if (calculateWinner(squares)) return;
     if (movingMode){
       if (squares[i] || !isValidMovingSquare(movingSquare, i)){
@@ -25,12 +26,16 @@ export default function Board() {
       const nextSquares = squares.slice();
       nextSquares[i] = squares[movingSquare];
       nextSquares[movingSquare] = squares[i];
+      if((squares[4] == player) && (nextSquares[4] == player) && !calculateWinner(nextSquares)){
+        setMovingMode(false);
+        return;
+      }
       setSquares(nextSquares);
       setMovingMode(false);
       setTurnNo(turnNo + 1);
     } else {
       if (turnNo >= 6){
-        if(squares[i] != (turnNo % 2 == 0 ? 'X' : 'O')) return;
+        if(squares[i] != player) return;
         setMovingSquare(i);
         setMovingMode(true);
       } else {

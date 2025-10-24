@@ -32,6 +32,7 @@ running test
     ./helper test
         > opens the port similarly to ./helper dev
     
+In the end I met with a TA, ultimately we were unable to fix the underlying issue but we made a few modifications to test_chorus_lapilli so that it could run headlessly on the seasnet server
 
 Building Chorus Lapilli:
 start with the code from tictactoe tutorial
@@ -53,3 +54,4 @@ added a function to check if the second square clicked on is valid
             > the ?? operator returns the second object if the first is not defined
 added a check to ensure the player is only initiating a swap on their tiles
 integrated nextSquares with swapping logic
+ensure nextSquares contains a winning condition if the center square is controlled
