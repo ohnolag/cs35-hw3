@@ -161,6 +161,48 @@ class TestChorusLapilli(unittest.TestCase):
         tiles[0].click()
         self.assertTileIs(tiles[0], self.SYMBOL_X)
 
+    def test_swap(self):
+        '''check if tiles can be swapped after the 6th move'''
+        tiles = self.driver.find_elements(By.XPATH, self.BOARD_TILE_XPATH)
+        clicks = [0, 1, 4, 5, 6, 7, 4, 8]
+        final_state = [self.SYMBOL_X, self.SYMBOL_O, self.SYMBOL_BLANK,
+                       self.SYMBOL_BLANK, self.SYMBOL_BLANK, self.SYMBOL_O,
+                       self.SYMBOL_X, self.SYMBOL_O, self.SYMBOL_X]
+
+        for i in clicks:
+            tiles[i].click()
+
+        for i in range(0, 8):
+            self.assertTileIs(tiles[i], final_state[i])
+
+    def test_enforce_vacate_center(self):
+        '''ensure a non-center tile can't be moved by the player who controls the center when that move does not result in a win'''
+        tiles = self.driver.find_elements(By.XPATH, self.BOARD_TILE_XPATH)
+        clicks = [0, 1, 4, 5, 6, 7, 6, 3]
+        final_state = [self.SYMBOL_X, self.SYMBOL_O, self.SYMBOL_BLANK,
+                       self.SYMBOL_BLANK, self.SYMBOL_X, self.SYMBOL_O,
+                       self.SYMBOL_X, self.SYMBOL_O, self.SYMBOL_BLANK]
+
+        for i in clicks:
+            tiles[i].click()
+
+        for i in range(0, 8):
+            self.assertTileIs(tiles[i], final_state[i])
+
+    def test_allow_center_controller_swap_on_win(self):
+        '''check if a non-center tile can be moved by the player who controls the center when that move results in a win'''
+        tiles = self.driver.find_elements(By.XPATH, self.BOARD_TILE_XPATH)
+        clicks = [0, 3, 4, 5, 7, 8, 0, 1, 0, 1, 2, 3, 4, 5, 6, 7, 8]
+        final_state = [self.SYMBOL_BLANK, self.SYMBOL_X, self.SYMBOL_BLANK,
+                       self.SYMBOL_O, self.SYMBOL_X, self.SYMBOL_O,
+                       self.SYMBOL_BLANK, self.SYMBOL_X, self.SYMBOL_O]
+
+        for i in clicks:
+            tiles[i].click()
+
+        for i in range(0, 8):
+            self.assertTileIs(tiles[i], final_state[i])
+
 
 # ================= [DO NOT MAKE ANY CHANGES BELOW THIS LINE] =================
 
